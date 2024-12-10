@@ -97,6 +97,9 @@ header{
 a:active{
     color: #fb4d3f;
 }
+a:hover{
+    color: #fb4d3f;
+}
 .active{
     color: #fb4d3f;
 }

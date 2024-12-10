@@ -3,6 +3,7 @@
 </script>
 <template>
     <Header />
+    <Banner />
 </template>
 <style>
 </style>
