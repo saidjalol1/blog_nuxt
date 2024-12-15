@@ -24,7 +24,7 @@ const truncateText = (text, limit) => {
             </div>
             <div class="post_title">
                 <h1 class="font-bold text-xl">
-                    <NuxtLink>
+                    <NuxtLink to="/detail">
                         {{  prop.title }}
                     </NuxtLink>
                 </h1>

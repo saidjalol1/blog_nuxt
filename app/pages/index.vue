@@ -1,4 +1,25 @@
 <script setup>
+useHead({
+  title: 'Asosiy - My Web App',
+  meta: [
+    {
+      name: 'description',
+      content: 'Learn more about our company and team on the About Us page.',
+    },
+    {
+      name: 'keywords',
+      content: 'about, company, team, web app',
+    },
+    {
+      property: 'og:title',
+      content: 'About Us - My Web App',
+    },
+    {
+      property: 'og:description',
+      content: 'Learn more about our company and team on the About Us page.',
+    },
+  ],
+});
 const dummy_posts = [
     {
         "title":"How I Am Using a Lifetime 100% Free Server",
