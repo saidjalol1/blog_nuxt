@@ -10,9 +10,10 @@
     font-family: "Poppins", sans-serif;
 }
 .wrapper{
-    max-width: 1920px;
+    max-width: 1420px;
     padding: 0 5%;
+    margin: 0 auto;
 }
 body{
-    background-color: #f5eee4;
+    background-color: white;
 }

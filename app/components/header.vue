@@ -22,7 +22,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
-        <header  class="w-full py-4" :style="{ 'background-color': isMobile ? '#eee3d2' : '#f5eee4' }">
+        <header  class="w-full py-4 border" >
             <div class="wrapper flex items-center">
                 <nav v-if="isMobile"  class="mobile flex justify-between items-center w-full">
                     <div class="logo">
@@ -90,7 +90,7 @@ onUnmounted(() => {
     font-size: 30px;
 }
 header{
-    background-color: #f5eee4;
+    background-color: white;
     font-weight: 600;
     color: #000000;
 }
@@ -104,6 +104,8 @@ a:hover{
     color: #fb4d3f;
 }
 .mobile_menu_items{
-    background-color: #f5eee4;
+    background-color: white;
+    position: absolute;
+    width: 100%;
 }
 </style>
