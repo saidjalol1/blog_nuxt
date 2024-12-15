@@ -64,7 +64,6 @@ const dummy_posts = [
 ]
 </script>
 <template>
-    <Header />
     <div class="wrapper grid  grid-cols-1 md:grid-cols-12 sm:grid-cols-1 lg:grid-cols-12 lg:gap-x-5 md:gap-x-5 sm:gap-x-5">
         <div class="posts_ lg:col-start-1 lg:col-end-9 md:col-start-1 md:col-end-9 sm:col-start-1 sm:col-end-13 lg:mt-14 md:mt-14 sm:mt-14">
             <Post v-for=" post in dummy_posts" :key="post.title" :text="post.body" :title="post.title" :date="post.date"  />

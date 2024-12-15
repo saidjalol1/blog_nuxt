@@ -1,4 +1,8 @@
 <script setup>
+import { ref } from "vue"
+
+let rec = ref(false)
+
 
 const prop = defineProps({
     title : String,
@@ -14,6 +18,9 @@ const truncateText = (text, limit) => {
       }
       return text;
     }
+const recommend_menu = () =>{
+    rec.value = !rec.value
+}
 
 </script>
 <template>
@@ -47,11 +54,16 @@ const truncateText = (text, limit) => {
                 </div>
                 <div class="save_and_recommend mt-4 flex items-center gap-x-4 pr-8">
                     <div class="save">
-                        <div class="icon">
+                        <div class="icon flex ites-center gap-x-4">
                             <button aria-label="save">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#aaadb1" class="bi bi-box-arrow-down" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1z"/>
                                     <path fill-rule="evenodd" d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z"/>
+                                </svg>
+                            </button>
+                            <button @click="recommend_menu" aria-label="button-rec">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#aaadb1" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                                 </svg>
                             </button>
                         </div>
@@ -60,8 +72,36 @@ const truncateText = (text, limit) => {
             </div>
         </div>
         <div class="post_image col-span-1 order-1 lg:order-2 md:order-2 mb-2">
-            <NuxtImg src="post.webp" width="640" height="360" sizes="100vw sm:50vw md:400px" alt="post image" />
+            <NuxtImg class="rounded-lg" src="post.webp" width="640" height="360" sizes="100vw sm:50vw md:400px" alt="post image" />
         </div>
+    </div>
+    <div  v-if="rec" class="rec_menu shadow-lg rounded-lg px-4 py-4">
+        <ul>
+            <li class="flex gap-x-2 item-center">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#aaadb1" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-sm text-bold">Ko'proq</span><br>
+                    <span class="text-sm text-gray-600">Menga shunga o'xshash postlardan ko'proq ko'rsating</span>
+                </div>
+            </li>
+            <li class="flex gap-x-2 item-center mt-2">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#aaadb1" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-sm text-bold">Kamroq</span><br>
+                    <span class="text-sm text-gray-600">Menga shunga o'xshash postlarni kamroq ko'rsating</span>
+                </div>
+            </li>
+        </ul>
     </div>
 </template>
 <style scoped>
@@ -86,5 +126,12 @@ a:hover{
         margin-top: 0px;
     }
 } */
-
+.rec_menu{
+    width: 200px;
+    border: 1px solid white;
+    background-color: white;
+    position: absolute;  /* Position the menu below the button */   /* Align with the left edge of the button */
+    z-index: 100; 
+    left: 35%;
+}
 </style>

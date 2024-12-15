@@ -20,11 +20,11 @@ const truncateText = (text, limit) => {
 <template>
     <div class="post px-2">
             <div class="category mb-2">
-                <h1 class="font-bold text-gray-500">{{  prop.category }}</h1>
+                <h1 class="font-bold text-gray-500">{{ prop.category }}</h1>
             </div>
             <div class="post_title">
                 <h1 class="font-bold text-xl">
-                    <NuxtLink to="/detail">
+                    <NuxtLink to="/post/dasa" :post="prop">
                         {{  prop.title }}
                     </NuxtLink>
                 </h1>
