@@ -207,7 +207,7 @@ onUnmounted(() => {
             <SocialShare class="text-white"  v-for="network in ['facebook', 'x', 'linkedin', 'email', 'telegram']"
             :key="network"
             :network="network"
-            :description="I want you to read that article it is awsome!!!"
+            :description="image_url"
             :image="image_url"
             :styled="true" />
         </div>
