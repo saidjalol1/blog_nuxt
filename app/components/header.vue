@@ -27,7 +27,7 @@ onUnmounted(() => {
                 <nav v-if="isMobile"  class="mobile flex justify-between items-center w-full">
                     <div class="logo">
                         <NuxtLink to="/">
-                            <span style="color: #fb4d3f;">M</span><span>F</span>
+                            <span style="color: #fb4d3f;">M</span><span>S</span>
                         </NuxtLink>
                     </div>
                     <div class="menu_btn">
@@ -42,16 +42,13 @@ onUnmounted(() => {
                 <nav v-else class="desktop w-full flex justify-between items-center">
                     <div class="logo">
                         <NuxtLink to="/">
-                            <span style="color: #fb4d3f;">M</span><span>F</span>
+                            <span style="color: #fb4d3f;">M</span><span>s</span>
                         </NuxtLink>
                     </div>
                     <div class="menu">
                         <ul class="flex justify-between gap-x-10">
                             <li class="text-bold">
-                                <NuxtLink to="/" active-class="active">Asosiy</NuxtLink>
-                            </li>
-                            <li>
-                                <NuxtLink to="/blog" active-class="active">Blog</NuxtLink>
+                                <NuxtLink to="/" active-class="active">Blog</NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink to="/books" active-class="active">Kitoblar</NuxtLink>
@@ -68,10 +65,7 @@ onUnmounted(() => {
             <div class="wrapper border">
                 <ul class="mt-5 mb-10 flex flex-col gap-y-4 text-xl">
                     <li>
-                        <NuxtLink to="/" active-class="active">Asosiy</NuxtLink>
-                    </li>
-                    <li>
-                        <NuxtLink to="/blog" active-class="active">Blog</NuxtLink>
+                        <NuxtLink to="/" active-class="active">Blog</NuxtLink>
                     </li>
                     <li>
                         <NuxtLink to="/books" active-class="active">Kitoblar</NuxtLink>

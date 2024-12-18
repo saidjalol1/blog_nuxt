@@ -118,8 +118,11 @@ onUnmounted(() => {
             <div class="title font-black text-xl lg:text-3xl">{{ post?.title }}</div>
             <div class="title font-semibold text-gray-600 text-xl lg:text-2xl mt-2">{{ post?.title }}</div>
         </div>
-        <div class="date text-gray-500 mt-10">
-            {{  post?.date }}
+        <div class="profile flex justify-start items-center gap-x-2 mt-10">
+            <div class="image">
+                <img src="../../public/download.png" alt="profile image" width="656" height="300" />
+            </div>
+            <div class="text-gray-600">Saidjalol Turakhujayev | {{  post.date }}</div>
         </div>
         <div v-if="isMobile" class="save_and_recommend mt-4 flex items-center justify-between gap-x-2 overflow-none">
                 <button class="btn-save flex items-center gap-x-2" aria-label="save">
@@ -140,7 +143,7 @@ onUnmounted(() => {
                     </span>
                 </button>
         </div>
-        <div v-if="isMobile == false" class="post_btns mt-2 py-2 flex items-center justify-between">
+        <div v-if="isMobile == false" class="post_btns mt-4 py-2 flex items-center justify-between">
             <div class="reactions flex gap-x-5 items-center">
                     <button aria-label="reaction" class="flex items-center gap-x-2">
                         <svg  xmlns="http://www.w3.org/2000/svg" width="23" viewBox="0 0 512 512"> 
@@ -250,6 +253,12 @@ onUnmounted(() => {
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
     border-top-right-radius: 50px;
+}
+.image{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 img{
     width: 100%;
