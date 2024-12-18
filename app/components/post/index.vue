@@ -28,7 +28,7 @@ const recommend_menu = () =>{
         <div class="post_main col-span-1 order-2 lg:order-1 md:order-1 lg:col-span-3 md:grid-span-2">
             <div class="post_title">
                 <h1 class="font-bold text-lg lg:text-3xl md:text-2xl sm:text-xl">
-                    <NuxtLink to="/detail/">
+                    <NuxtLink to="/post/post_detail">
                         {{  prop.title }}
                     </NuxtLink>
                 </h1>

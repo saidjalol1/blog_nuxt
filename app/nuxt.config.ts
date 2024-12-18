@@ -4,13 +4,17 @@ import { Meta } from "#build/components";
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxt/image'],
+  modules: ['@nuxt/image', '@stefanobartoletti/nuxt-social-share'],
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+  socialShare: {
+    baseUrl: 'http://localhost:3000/' // required!
+    // other optional module options
   },
   app: {
     head: {

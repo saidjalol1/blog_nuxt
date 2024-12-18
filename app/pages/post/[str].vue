@@ -3,18 +3,52 @@ import { ref, onMounted, onUnmounted } from "vue";
 
 const isMobile = ref(false);
 let rec = ref(false)
+const post = ref(null)
+const image_url = ref(null)
 
 
-const post = {
+const fetchPost  = () =>{
+    post.value =  {
     
-        "title":"How I Am Using a Lifetime 100% Free Server",
-        "body":"As developers we need to run and host the backends on cloud services. are available, but they have some restrictions.What if I say I have been using the Linux-based server for free for more than 4–5 years? Yes, you heard it right. I am using this Linux server with Ubuntu 20 installed, 24 GB RAM, 4 CPUs, and 200 GB storage for a lifetime free.",
-        "reaction":245,
-        "comment":500,
-        "category":"Shahxiy rivojlanish",
-        "date":"2005-10-06"
-    
+    "title":"How I Am Using a Lifetime 100% Free Server",
+    "body":"As developers we need to run and host the backends on cloud services. are available, but they have some restrictions.What if I say I have been using the Linux-based server for free for more than 4–5 years? Yes, you heard it right. I am using this Linux server with Ubuntu 20 installed, 24 GB RAM, 4 CPUs, and 200 GB storage for a lifetime free.",
+    "reaction":245,
+    "comment":500,
+    "category":"Shahxiy rivojlanish",
+    "date":"2005-10-06"
+
+    }
 }
+
+// definePageMeta({
+//     title: post.value.title,  // Page title
+//     meta: [
+//     {
+//       name: "description",
+//       content: post.body.substring(0, 150), // Use the first 150 characters as a meta description.
+//     },
+//     {
+//       name: "keywords",
+//       content: `${post.value.category}, ${post.value.title}, ${post.value.body.substring(0, 10)}`,
+//     },
+//     {
+//       property: "og:title",
+//       content: post.value.title,
+//     },
+//     {
+//       property: "og:description",
+//       content: post.value.body.substring(0, 150),
+//     },
+//     {
+//       property: "og:type",
+//       content: "article",
+//     },
+//     {
+//       property: "og:published_time",
+//       content: post.value.date,
+//     },
+//   ],
+// });
 const dummy_posts = [
     {
         "title":"How I Am Using a Lifetime 100% Free Server",
@@ -68,14 +102,18 @@ const recommend_menu = () =>{
 onMounted(() => {
   checkWindowSize(); // Initial check
   window.addEventListener("resize", checkWindowSize); 
+  fetchPost()
+  image_url.value = "https://www.google.com/imgres?q=images%20free%20public&imgurl=https%3A%2F%2Fpublicdomainarchive.com%2Fwp-content%2Fuploads%2F2017%2F09%2Ffree-stock-photos-public-domain-images-013-1000x667.jpg&imgrefurl=https%3A%2F%2Fpublicdomainarchive.com%2F&docid=E1iVANbqEHVBxM&tbnid=dlS4ETrl2i8vjM&vet=12ahUKEwi345qlgq6KAxUmBdsEHbbmBl4QM3oECEsQAA..i&w=1000&h=667&hcb=2&ved=2ahUKEwi345qlgq6KAxUmBdsEHbbmBl4QM3oECEsQAA"
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", checkWindowSize);
 });
+
+
 </script>
-<template>
-    <div class="wrapper">
+<template >
+    <div v-if="post" class="wrapper">
         <div class="post_detail pt-10">
             <div class="title font-black text-xl lg:text-3xl">{{ post?.title }}</div>
             <div class="title font-semibold text-gray-600 text-xl lg:text-2xl mt-2">{{ post?.title }}</div>
@@ -84,21 +122,22 @@ onUnmounted(() => {
             {{  post?.date }}
         </div>
         <div v-if="isMobile" class="save_and_recommend mt-4 flex items-center justify-between gap-x-2 overflow-none">
-                <button class="btn-save" aria-label="save">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#aaadb1" class="bi bi-share" viewBox="0 0 16 16">
-                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
-                    </svg>
-                </button>
-                <button class="btn-save" aria-label="save">
+                <button class="btn-save flex items-center gap-x-2" aria-label="save">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#aaadb1" class="bi bi-box-arrow-down" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1z"/>
                         <path fill-rule="evenodd" d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z"/>
                     </svg>
+                    <span class="text-sm text-gray-500">
+                        Saqlash
+                    </span>
                 </button>
-                <button class="btn-save" @click="recommend_menu" aria-label="save">
+                <button class="btn-save flex items-center gap-x-2" @click="recommend_menu" aria-label="save">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#aaadb1" class="bi bi-three-dots" viewBox="0 0 16 16">
                         <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                     </svg>
+                    <span class="text-sm text-gray-500">
+                        More
+                    </span>
                 </button>
         </div>
         <div v-if="isMobile == false" class="post_btns mt-2 py-2 flex items-center justify-between">
@@ -117,11 +156,6 @@ onUnmounted(() => {
                     </button>
             </div>
             <div class="save_and_recommend flex items-center gap-x-5 pr-8">
-                <button aria-label="save">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#aaadb1" class="bi bi-share" viewBox="0 0 16 16">
-                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
-                    </svg>
-                </button>
                 <button aria-label="save">
                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#aaadb1" class="bi bi-box-arrow-down" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1z"/>
@@ -169,7 +203,15 @@ onUnmounted(() => {
         <div class="post_body mt-5 lg:text-xl md:text-xl text-lg text-xl">
             {{ post.body }}
         </div>
-        <div class="post_btns mt-10 py-2 flex items-center justify-between">
+        <div class="share_buttons flex mt-2 mb-2 gap-x-2 flex-wrap gap-y-2">
+            <SocialShare class="text-white"  v-for="network in ['facebook', 'x', 'linkedin', 'email', 'telegram']"
+            :key="network"
+            :network="network"
+            :description="I want you to read that article it is awsome!!!"
+            :image="image_url"
+            :styled="true" />
+        </div>
+        <div class="post_btns py-2 flex items-center justify-between">
             <div class="reactions flex gap-x-5 items-center">
                     <button aria-label="reaction" class="flex items-center gap-x-2">
                         <svg  xmlns="http://www.w3.org/2000/svg" width="23" viewBox="0 0 512 512"> 
@@ -224,7 +266,23 @@ img{
 .post_body{
     line-height: 40px
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
+@keyframes slideIn {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
 @media screen and (max-width:568px){
     .rec_menu{
         left: 58%;
