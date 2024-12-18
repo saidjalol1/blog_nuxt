@@ -172,7 +172,7 @@ onUnmounted(() => {
                 </button>
             </div>
         </div>
-        <div class="post_image mb-2 mt-16 ">
+        <div class="post_image mb-2 mt-6 ">
             <NuxtImg class="rounded-lg" src="post.webp" width="640" height="360" sizes="100vw sm:50vw md:400px" alt="post image" />
         </div>
         <div  v-if="rec" class="rec_menu shadow-lg rounded-lg px-4 py-4">
