@@ -1,6 +1,6 @@
 <script setup>
 useHead({
-  title: 'Asosiy - My Web App',
+  title: 'Saqlangan - My Web App',
   meta: [
     {
       name: 'description',
@@ -92,7 +92,7 @@ const dummy_posts = [
             <Post v-for=" post in dummy_posts" :key="post.title" :text="post.body" :title="post.title" :date="post.date"  />
         </div>
         <div class="recommendation_posts lg:mt-0 md:mt-0 sm:mt-0 lg:col-start-9 lg:col-end-13 md:col-start-9 md:col-end-13 sm:col-start-1 sm:col-end-3 lg:py-4 md:py-4 lg:px-2 md:px-2 sm:py-4 lg:border lg:border-l-2 lg:border-b-0 lg:border-r-0 md:border md:border-l-2 md:border-b-0 md:border-r-0">
-            <h1 class="px-2 mb-8 text-xl font-bold mt-10 mt-4">Takliflar</h1>
+            <h1 class="px-2 mb-8 text-xl font-bold mt-10">Takliflar</h1>
             <RecommendedPosts v-for=" post in dummy_posts" :key="post.title" :text="post.body" :title="post.title"  :category="post.category"  :date="post.date"   />
         </div>
     </div>

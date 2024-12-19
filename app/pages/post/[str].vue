@@ -5,6 +5,7 @@ const isMobile = ref(false);
 let rec = ref(false)
 const post = ref(null)
 const image_url = ref(null)
+const com = ref(false)
 
 
 const fetchPost  = () =>{
@@ -97,6 +98,9 @@ const checkWindowSize = () => {
 
 const recommend_menu = () =>{
     rec.value = !rec.value
+}
+const comment_toggle = () =>{
+    com.value = !com.value
 }
 
 onMounted(() => {
@@ -230,6 +234,87 @@ onUnmounted(() => {
                     </button>
             </div>
         </div>
+        <div class="comments mt-10">
+            <div class="input">
+                 <form action="">
+                    <div class="shadow hover:shadow-lg rounded-lg px-4 py-2">
+                        <input type="text" class="w-full outline-none" placeholder="Ism va Familiya">
+                    </div>
+                    <div class="shadow hover:shadow-lg rounded-lg px-4 py-2 mt-3">
+                        <textarea name="" class="outline-none w-full" placeholder="comment ..."  id=""></textarea>
+                    </div>
+                    <div>
+                        <button class="send mt-4">jo'natish</button>
+                    </div>
+                 </form>
+            </div> 
+            <div class="flex justify-between items-center mt-10 shadow px-2 py-2 rounded-lg">
+                <h1 class="text-2xl font-bold">Izohlar(56)</h1> 
+                <button @click="comment_toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                        <path d="M3.204 5h9.592L8 10.481zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659"/>
+                    </svg>
+                </button>
+            </div>
+            <div v-if="com" class="comments px-4 mt-5 flex flex-col gap-y-6 py-4">
+                <div class="comment">
+                    <div class="flex  items-center gap-x-2">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </span>
+                        <span class="text-gray-500">Saidjalol Turakhujayev</span>
+                    </div>
+                    <dir class="pl-10">
+                        <span>Zo'r aka Yorvoripsilar malades</span>
+                    </dir>
+                </div>
+                <div class="comment">
+                    <div class="flex  items-center gap-x-2">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </span>
+                        <span class="text-gray-500">Saidjalol Turakhujayev</span>
+                    </div>
+                    <dir class="pl-10">
+                        <span>Zo'r aka Yorvoripsilar malades</span>
+                    </dir>
+                </div>
+                <div class="comment">
+                    <div class="flex  items-center gap-x-2">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </span>
+                        <span class="text-gray-500">Saidjalol Turakhujayev</span>
+                    </div>
+                    <dir class="pl-10">
+                        <span>Zo'r aka Yorvoripsilar malades</span>
+                    </dir>
+                </div>
+                <div class="comment">
+                    <div class="flex  items-center gap-x-2">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </span>
+                        <span class="text-gray-500">Saidjalol Turakhujayev</span>
+                    </div>
+                    <dir class="pl-10">
+                        <span>Zo'r aka Yorvoripsilar malades</span>
+                    </dir>
+                </div>
+            </div>         
+        </div>
         <div class="recommendation_posts lg:mt-0 md:mt-0 sm:mt-0 lg:col-start-9 lg:col-end-13 md:col-start-9 md:col-end-13 sm:col-start-1 sm:col-end-3 lg:py-4 md:py-4 lg:px-2 md:px-2 sm:py-4">
             <h1 class="px-2 mb-8 text-xl font-bold mt-10">Takliflar</h1>
             <RecommendedPosts v-for=" post in dummy_posts" :key="post.title" :text="post.body" :title="post.title"  :category="post.category"  :date="post.date"   />
@@ -274,6 +359,13 @@ img{
 }
 .post_body{
     line-height: 40px
+}
+.send{
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    color: white;
+    background-color: #fb4d3f;
 }
 @keyframes fadeIn {
   from {
