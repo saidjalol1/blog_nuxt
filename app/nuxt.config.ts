@@ -2,6 +2,7 @@ import { Meta } from "#build/components";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  components: true,
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   modules: ['@nuxt/image', '@stefanobartoletti/nuxt-social-share'],
@@ -15,6 +16,11 @@ export default defineNuxtConfig({
   socialShare: {
     baseUrl: 'http://localhost:3000/' // required!
     // other optional module options
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://127.0.0.1:8000'
+    },
   },
   app: {
     head: {

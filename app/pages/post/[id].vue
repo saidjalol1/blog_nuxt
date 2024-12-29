@@ -1,97 +1,41 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRoute()
+
 
 const isMobile = ref(false);
 let rec = ref(false)
-const post = ref(null)
+const post = ref({})
 const image_url = ref(null)
 const com = ref(false)
+const config = useRuntimeConfig();
+const error = ref("")
 
-
-const fetchPost  = () =>{
-    post.value =  {
-    
-    "title":"How I Am Using a Lifetime 100% Free Server",
-    "body":"As developers we need to run and host the backends on cloud services. are available, but they have some restrictions.What if I say I have been using the Linux-based server for free for more than 4–5 years? Yes, you heard it right. I am using this Linux server with Ubuntu 20 installed, 24 GB RAM, 4 CPUs, and 200 GB storage for a lifetime free.",
-    "reaction":245,
-    "comment":500,
-    "category":"Shahxiy rivojlanish",
-    "date":"2005-10-06"
-
+const fetchBlog = async () => {
+  try {
+    const response = await fetch(`${config.public.apiBase}/get-blog/`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: parseInt(router.params.id)}),
+    });
+    if (!response.ok) {
+        console.log({"id":parseInt(router.params.id)})
+      throw new Error('Network response was not ok');
     }
-}
+    const data = await response.json();
+    console.log(data)
+    post.value = data
+  } catch (error) {
+    error.value = error.message;
+  }
+};
 
-// definePageMeta({
-//     title: post.value.title,  // Page title
-//     meta: [
-//     {
-//       name: "description",
-//       content: post.body.substring(0, 150), // Use the first 150 characters as a meta description.
-//     },
-//     {
-//       name: "keywords",
-//       content: `${post.value.category}, ${post.value.title}, ${post.value.body.substring(0, 10)}`,
-//     },
-//     {
-//       property: "og:title",
-//       content: post.value.title,
-//     },
-//     {
-//       property: "og:description",
-//       content: post.value.body.substring(0, 150),
-//     },
-//     {
-//       property: "og:type",
-//       content: "article",
-//     },
-//     {
-//       property: "og:published_time",
-//       content: post.value.date,
-//     },
-//   ],
-// });
-const dummy_posts = [
-    {
-        "title":"How I Am Using a Lifetime 100% Free Server",
-        "body":"As developers we need to run and host the backends on cloud services. are available, but they have some restrictions.What if I say I have been using the Linux-based server for free for more than 4–5 years? Yes, you heard it right. I am using this Linux server with Ubuntu 20 installed, 24 GB RAM, 4 CPUs, and 200 GB storage for a lifetime free.",
-        "reaction":245,
-        "comment":500,
-        "category":"Shahxiy rivojlanish",
-        "date":"2005-10-06"
-    },
-    {
-        "title":"How I Am Using a Lifetime 100% Free Server",
-        "body":"As developers we need to run and host the backends on cloud services. are available, but they have some restrictions.What if I say I have been using the Linux-based server for free for more than 4–5 years? Yes, you heard it right. I am using this Linux server with Ubuntu 20 installed, 24 GB RAM, 4 CPUs, and 200 GB storage for a lifetime free.",
-        "reaction":245,
-        "comment":500,
-        "category":"Shahxiy rivojlanish",
-        "date":"2005-10-06"
-    },
-    {
-        "title":"How I Am Using a Lifetime 100% Free Server",
-        "body":"As developers we need to run and host the backends on cloud services. are available, but they have some restrictions.What if I say I have been using the Linux-based server for free for more than 4–5 years? Yes, you heard it right. I am using this Linux server with Ubuntu 20 installed, 24 GB RAM, 4 CPUs, and 200 GB storage for a lifetime free.",
-        "reaction":245,
-        "comment":500,
-        "category":"Shahxiy rivojlanish",
-        "date":"2005-10-06"
-    },
-    {
-        "title":"How I Am Using a Lifetime 100% Free Server",
-        "body":"As developers we need to run and host the backends on cloud services. are available, but they have some restrictions.What if I say I have been using the Linux-based server for free for more than 4–5 years? Yes, you heard it right. I am using this Linux server with Ubuntu 20 installed, 24 GB RAM, 4 CPUs, and 200 GB storage for a lifetime free.",
-        "reaction":245,
-        "comment":500,
-        "category":"Shahxiy rivojlanish",
-        "date":"2005-10-06"
-    },
-    {
-        "title":"How I Am Using a Lifetime 100% Free Server",
-        "body":"As developers we need to run and host the backends on cloud services. are available, but they have some restrictions.What if I say I have been using the Linux-based server for free for more than 4–5 years? Yes, you heard it right. I am using this Linux server with Ubuntu 20 installed, 24 GB RAM, 4 CPUs, and 200 GB storage for a lifetime free.",
-        "reaction":245,
-        "comment":500,
-        "category":"Shahxiy rivojlanish",
-        "date":"2005-10-06"
-    },
-]
+
+
 const checkWindowSize = () => {
   isMobile.value = window.innerWidth <= 768;
 };
@@ -102,12 +46,14 @@ const recommend_menu = () =>{
 const comment_toggle = () =>{
     com.value = !com.value
 }
+const post_image = (image) => {
+    return `${ config.public.apiBase}/static/images/${image}`
+}
 
 onMounted(() => {
+  fetchBlog()
   checkWindowSize(); // Initial check
-  window.addEventListener("resize", checkWindowSize); 
-  fetchPost()
-  image_url.value = "https://www.google.com/imgres?q=images%20free%20public&imgurl=https%3A%2F%2Fpublicdomainarchive.com%2Fwp-content%2Fuploads%2F2017%2F09%2Ffree-stock-photos-public-domain-images-013-1000x667.jpg&imgrefurl=https%3A%2F%2Fpublicdomainarchive.com%2F&docid=E1iVANbqEHVBxM&tbnid=dlS4ETrl2i8vjM&vet=12ahUKEwi345qlgq6KAxUmBdsEHbbmBl4QM3oECEsQAA..i&w=1000&h=667&hcb=2&ved=2ahUKEwi345qlgq6KAxUmBdsEHbbmBl4QM3oECEsQAA"
+  window.addEventListener("resize", checkWindowSize);   
 });
 
 onUnmounted(() => {
@@ -117,16 +63,17 @@ onUnmounted(() => {
 
 </script>
 <template >
-    <div v-if="post" class="wrapper">
+    <div v-if="error" class="error-message">{{ error }}</div>
+    <div v-else class="wrapper">
         <div class="post_detail pt-10">
             <div class="title font-black text-xl lg:text-3xl">{{ post?.title }}</div>
-            <div class="title font-semibold text-gray-600 text-xl lg:text-2xl mt-2">{{ post?.title }}</div>
+            <div class="title font-semibold text-gray-600 text-xl lg:text-2xl mt-2">{{ post?.subtitle }}</div>
         </div>
         <div class="profile flex justify-start items-center gap-x-2 mt-10">
             <div class="image">
-                <img src="../../public/download.png" alt="profile image" width="656" height="300" />
+                <NuxtImg :src="post_image(post.image)" alt="profile image" width="656" height="300" />
             </div>
-            <div class="text-gray-600">Saidjalol Turakhujayev | {{  post.date }}</div>
+            <div class="text-gray-600">Saidjalol Turakhujayev | {{  post.date_added }}</div>
         </div>
         <div v-if="isMobile" class="save_and_recommend mt-4 flex items-center justify-between gap-x-2 overflow-none">
                 <button class="btn-save flex items-center gap-x-2" aria-label="save">
@@ -177,7 +124,7 @@ onUnmounted(() => {
             </div>
         </div>
         <div class="post_image mb-2 mt-6 ">
-            <NuxtImg class="rounded-lg" src="post.webp" width="640" height="360" sizes="100vw sm:50vw md:400px" alt="post image" />
+            <NuxtImg class="rounded-lg" :src="post_image(post.image)" width="640" height="360" sizes="100vw sm:50vw md:400px" alt="post image" />
         </div>
         <div  v-if="rec" class="rec_menu shadow-lg rounded-lg px-4 py-4">
             <ul>
@@ -207,9 +154,7 @@ onUnmounted(() => {
                 </li>
             </ul>
         </div>
-        <div class="post_body mt-5 lg:text-xl md:text-xl text-lg text-xl">
-            {{ post.body }}
-        </div>
+        <div class="post_body mt-5 lg:text-xl md:text-xl text-lg text-xl" v-html="post.body"></div>
         <div class="share_buttons flex mt-2 mb-2 gap-x-2 flex-wrap gap-y-2">
             <SocialShare class="text-white"  v-for="network in ['facebook', 'x', 'linkedin', 'email', 'telegram']"
             :key="network"
@@ -234,93 +179,7 @@ onUnmounted(() => {
                     </button>
             </div>
         </div>
-        <div class="comments mt-10">
-            <div class="input">
-                 <form action="">
-                    <div class="shadow hover:shadow-lg rounded-lg px-4 py-2">
-                        <input type="text" class="w-full outline-none" placeholder="Ism va Familiya">
-                    </div>
-                    <div class="shadow hover:shadow-lg rounded-lg px-4 py-2 mt-3">
-                        <textarea name="" class="outline-none w-full" placeholder="comment ..."  id=""></textarea>
-                    </div>
-                    <div>
-                        <button class="send mt-4">jo'natish</button>
-                    </div>
-                 </form>
-            </div> 
-            <div class="flex justify-between items-center mt-10 shadow px-2 py-2 rounded-lg">
-                <h1 class="text-2xl font-bold">Izohlar(56)</h1> 
-                <button @click="comment_toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
-                        <path d="M3.204 5h9.592L8 10.481zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659"/>
-                    </svg>
-                </button>
-            </div>
-            <div v-if="com" class="comments px-4 mt-5 flex flex-col gap-y-6 py-4">
-                <div class="comment">
-                    <div class="flex  items-center gap-x-2">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                            </svg>
-                        </span>
-                        <span class="text-gray-500">Saidjalol Turakhujayev</span>
-                    </div>
-                    <dir class="pl-10">
-                        <span>Zo'r aka Yorvoripsilar malades</span>
-                    </dir>
-                </div>
-                <div class="comment">
-                    <div class="flex  items-center gap-x-2">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                            </svg>
-                        </span>
-                        <span class="text-gray-500">Saidjalol Turakhujayev</span>
-                    </div>
-                    <dir class="pl-10">
-                        <span>Zo'r aka Yorvoripsilar malades</span>
-                    </dir>
-                </div>
-                <div class="comment">
-                    <div class="flex  items-center gap-x-2">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                            </svg>
-                        </span>
-                        <span class="text-gray-500">Saidjalol Turakhujayev</span>
-                    </div>
-                    <dir class="pl-10">
-                        <span>Zo'r aka Yorvoripsilar malades</span>
-                    </dir>
-                </div>
-                <div class="comment">
-                    <div class="flex  items-center gap-x-2">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                            </svg>
-                        </span>
-                        <span class="text-gray-500">Saidjalol Turakhujayev</span>
-                    </div>
-                    <dir class="pl-10">
-                        <span>Zo'r aka Yorvoripsilar malades</span>
-                    </dir>
-                </div>
-            </div>         
-        </div>
-        <div class="recommendation_posts lg:mt-0 md:mt-0 sm:mt-0 lg:col-start-9 lg:col-end-13 md:col-start-9 md:col-end-13 sm:col-start-1 sm:col-end-3 lg:py-4 md:py-4 lg:px-2 md:px-2 sm:py-4">
-            <h1 class="px-2 mb-8 text-xl font-bold mt-10">Takliflar</h1>
-            <RecommendedPosts v-for=" post in dummy_posts" :key="post.title" :text="post.body" :title="post.title"  :category="post.category"  :date="post.date"   />
-        </div>
     </div>
-   
 </template>
 <style scoped>
 .wrapper{

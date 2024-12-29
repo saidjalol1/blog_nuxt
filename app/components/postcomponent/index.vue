@@ -1,15 +1,13 @@
 <script setup>
 import { ref } from "vue"
+import { useRouter } from "vue-router";
 
+const router = useRouter()
 let rec = ref(false)
-
+const config = useRuntimeConfig();
 
 const prop = defineProps({
-    title : String,
-    text : String,
-    reaction : Number,
-    comment : Number,
-    date: String
+   post: Object
 })
 
 const saved = () =>{
@@ -34,22 +32,26 @@ const truncateText = (text, limit) => {
 const recommend_menu = () =>{
     rec.value = !rec.value
 }
+const post_image = (image) => {
+    return `${config.public.apiBase}/static/images/${image}`
+}
 
+const goToDetail = (index) => {
+  router.push(`/post/${index}`);
+};
 </script>
 <template>
     <div class="post grid grid-cols-1 lg:grid-cols-4 gap-x-4 mb-6">
         <div class="post_main col-span-1 order-2 lg:order-1 md:order-1 lg:col-span-3 md:grid-span-2">
-            <div class="post_title">
+            <div @click="goToDetail(prop.post.id)" class="post_title">
                 <h1 class="font-bold text-lg lg:text-3xl md:text-2xl sm:text-xl">
-                    <NuxtLink to="/post/post_detail">
-                        {{  prop.title }}
-                    </NuxtLink>
+                    {{  prop.post.title }}
                 </h1>
             </div>
-            <div class="post_short pr-10 text-gray-700 text-sm lg:text-lg md:text-lg">{{  truncateText(prop.text, 100) }}</div>
+            <div class="post_short pr-10 text-gray-700 text-sm lg:text-lg md:text-lg" v-html="truncateText(prop.post.body, 200)"></div>
             <div class="post_btns flex items-center justify-between">
                 <div class="reactions mt-4 flex gap-x-8 items-center">
-                    <div class="date hidden lg:block md:block text-sm text-gray-500 mt-2">{{  prop.date }}</div>
+                    <div class="date hidden lg:block md:block text-sm text-gray-500 mt-2">{{  prop.post.date_added }}</div>
                     <div class="reaction flex items-center gap-x-5 text-grey-600">
                         <button @click="liked" aria-label="reaction" class="flex items-center gap-x-2">
                             <svg  xmlns="http://www.w3.org/2000/svg" width="23" viewBox="0 0 512 512"> 
@@ -85,7 +87,7 @@ const recommend_menu = () =>{
             </div>
         </div>
         <div class="post_image col-span-1 order-1 lg:order-2 md:order-2 mb-2">
-            <NuxtImg class="rounded-lg" src="post.webp" width="640" height="360" sizes="100vw sm:50vw md:400px" alt="post image" />
+            <NuxtImg class="rounded-lg" :src="post_image(prop.post.image)" width="640" height="360" sizes="100vw sm:50vw md:400px" alt="post image" />
         </div>
     </div>
     <div  v-if="rec" class="rec_menu shadow-lg rounded-lg px-4 py-4">
