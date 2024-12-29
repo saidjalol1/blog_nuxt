@@ -12,6 +12,7 @@ const image_url = ref(null)
 const com = ref(false)
 const config = useRuntimeConfig();
 const error = ref("")
+const date = ref("")
 
 const fetchBlog = async () => {
   try {
@@ -29,6 +30,7 @@ const fetchBlog = async () => {
     const data = await response.json();
     console.log(data)
     post.value = data
+    date.value = data.date_added.split("T")[0]
   } catch (error) {
     error.value = error.message;
   }
@@ -60,7 +62,6 @@ onUnmounted(() => {
   window.removeEventListener("resize", checkWindowSize);
 });
 
-
 </script>
 <template >
     <div v-if="error" class="error-message">{{ error }}</div>
@@ -71,9 +72,9 @@ onUnmounted(() => {
         </div>
         <div class="profile flex justify-start items-center gap-x-2 mt-10">
             <div class="image">
-                <NuxtImg :src="post_image(post.image)" alt="profile image" width="656" height="300" />
+                <img src="../../public/download.png" alt="profile image" width="656" height="300" />
             </div>
-            <div class="text-gray-600">Saidjalol Turakhujayev | {{  post.date_added }}</div>
+            <div class="text-gray-600">{{ post.admin?.username }} | {{  date }}</div>
         </div>
         <div v-if="isMobile" class="save_and_recommend mt-4 flex items-center justify-between gap-x-2 overflow-none">
                 <button class="btn-save flex items-center gap-x-2" aria-label="save">

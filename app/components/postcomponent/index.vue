@@ -42,7 +42,7 @@ const goToDetail = (index) => {
 </script>
 <template>
     <div class="post grid grid-cols-1 lg:grid-cols-4 gap-x-4 mb-6">
-        <div class="post_main col-span-1 order-2 lg:order-1 md:order-1 lg:col-span-3 md:grid-span-2">
+        <div class="post_main col-span-1 order-2 lg:order-1 md:order-2 lg:col-span-3 md:grid-span-2">
             <div @click="goToDetail(prop.post.id)" class="post_title">
                 <h1 class="font-bold text-lg lg:text-3xl md:text-2xl sm:text-xl">
                     {{  prop.post.title }}
@@ -86,7 +86,7 @@ const goToDetail = (index) => {
                 </div>
             </div>
         </div>
-        <div class="post_image col-span-1 order-1 lg:order-2 md:order-2 mb-2">
+        <div class="post_image col-span-1 order-1 lg:order-2 md:order-1 mb-2">
             <NuxtImg class="rounded-lg" :src="post_image(prop.post.image)" width="640" height="360" sizes="100vw sm:50vw md:400px" alt="post image" />
         </div>
     </div>
