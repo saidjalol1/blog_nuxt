@@ -15,9 +15,6 @@ onMounted(() =>{
 </script>
 <template>
     <div class="post px-2">
-            <div class="category mb-2">
-                <h1 class="font-bold text-gray-500">{{ prop.post.category }}</h1>
-            </div>
             <div class="post_title">
                 <h1 class="font-bold text-xl">
                     <NuxtLink to="/" :post="prop.post">
