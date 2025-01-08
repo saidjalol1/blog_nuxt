@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'https://back-end.muvaffaqiyatsirlari.uz/'
+      apiBase: 'https://back-end.muvaffaqiyatsirlari.uz'
     },
   },
   app: {
