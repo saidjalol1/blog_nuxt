@@ -92,26 +92,65 @@ const post_image = (image) => {
     return `${ config.public.apiBase}/static/images/${image}`
 }
 useHead({
-  title: 'Asosiy - My Web App',
+  title: `${post.value.title || post.value.subtitle}`,
   meta: [
     {
       name: 'description',
-      content: 'Muvaffaqiyat sirlari, shaxsiy rivojlanish, It texnologiyalari, IT olamida Careriyera qurish , turli yangiliklar haqida kontentlar',
+      content: `${post.value.body.split(" ").slice(0, 10).join(" ")}...`,  // Summary of the post for the meta description
     },
     {
       name: 'keywords',
-      content: 'IT, Python, AI, Sun\'y intelekt, Shaxsiy rivojlanish',
+      content: 'IT, Python, Sun\'iy intellekt, Shaxsiy rivojlanish, Texnologiyalar, IT Karera, Web dasturlash, O\'zbekcha kontent',
     },
     {
-      property: 'keywords',
-      content: 'Texnologiya',
+      property: 'og:title',
+      content: `${post.value.title || post.value.subtitle}`,
     },
     {
       property: 'og:description',
-      content: 'Muvaffaqiyat sirlari, shaxsiy rivojlanish, It texnologiyalari, IT olamida Careriyera qurish , turli yangiliklar haqida kontentlar',
+      content: `${post.value.body.split(" ").slice(0, 20).join(" ")}...`,
+    },
+    {
+      property: 'og:type',
+      content: 'article',  // Make it specific to an article for SEO
+    },
+    {
+      property: 'og:url',
+      content: window.location.href,
+    },
+    {
+      property: 'og:image',
+      content: post_image(post.value.image || 'default-image.webp'),  // Ensure dynamic image URL is used
+    },
+    {
+      name: 'author',
+      content: 'G\'ayratjon Xoldarov, Turakhujayev Saidjalol',
+    },
+    {
+      name: 'robots',
+      content: 'index, follow',
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.value.title,
+        "description": post.value.body,
+        "author": {
+          "@type": "Person",
+          "name": "G\'ayratjon Xoldarov, Turakhujayev Saidjalol"
+        },
+        "datePublished": post.value.date_added,
+        "image": post_image(post.value.image || 'default-image.webp'),
+        "url": window.location.href,
+      }),
     },
   ],
 });
+
 onMounted(() => {
   fetchBlog()
   checkWindowSize(); // Initial check

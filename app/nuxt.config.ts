@@ -26,30 +26,46 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'My Web App', // Default title for the website
+      title: 'Asosiy - My Web App | IT, Shaxsiy Rivojlanish va Texnologiyalar',
       htmlAttrs: {
         lang: 'en', // Adds <html lang="en">
       },
       meta: [
         {
           name: 'description',
-          content: 'This is my web application built with Nuxt.js.', // Meta description
+          content: 'Muvaffaqiyat sirlari, shaxsiy rivojlanish, IT texnologiyalari, IT olamida muvaffaqiyatli karera qurish, Python va sun\'iy intellekt haqida qiziqarli va foydali kontent.',
         },
         {
           name: 'keywords',
-          content: 'web, app, nuxt, javascript, tailwindcss', // Keywords for SEO
+          content: 'IT, Python, Sun\'iy intellekt, Shaxsiy rivojlanish, Texnologiyalar, IT Karera, Web dasturlash, O\'zbekcha kontent',
         },
         {
           property: 'og:title',
-          content: 'My Web App', // Open Graph title for social sharing
+          content: 'Asosiy - My Web App | IT, Shaxsiy Rivojlanish va Texnologiyalar',
         },
         {
           property: 'og:description',
-          content: 'This is my web application built with Nuxt.js.', // Open Graph description
+          content: 'O\'zbek tilida muvaffaqiyat sirlari, shaxsiy rivojlanish, IT texnologiyalari, va sun\'iy intellekt haqida qiziqarli maqolalar va yangiliklar.',
         },
         {
           property: 'og:type',
-          content: 'website', // Open Graph type
+          content: 'website',
+        },
+        {
+          property: 'og:url',
+          content: 'https://www.muvaffaqiyatsirlari.uz/',
+        },
+        {
+          property: 'og:image',
+          content: 'https://back-end.muvaffaqiyatsirlari.uz/static/images/a80c3b7e-36e5-4f6e-96a4-884b3ceccb71.webp',
+        },
+        {
+          name: 'author',
+          content: 'G\'ayratjon Xoldarov, Turakhujayev Saidjalol',
+        },
+        {
+          name: 'robots',
+          content: 'index, follow',
         },
       ],
     },
