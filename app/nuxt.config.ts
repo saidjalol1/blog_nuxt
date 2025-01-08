@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     },
   },
   socialShare: {
-    baseUrl: 'http://localhost:3000/' // required!
+    baseUrl: 'https://www.muvaffaqiyatsirlari.uz/' // required!
     // other optional module options
   },
   runtimeConfig: {
