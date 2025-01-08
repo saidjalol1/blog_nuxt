@@ -91,7 +91,27 @@ const comment_toggle = () =>{
 const post_image = (image) => {
     return `${ config.public.apiBase}/static/images/${image}`
 }
-
+useHead({
+  title: 'Asosiy - My Web App',
+  meta: [
+    {
+      name: 'description',
+      content: 'Muvaffaqiyat sirlari, shaxsiy rivojlanish, It texnologiyalari, IT olamida Careriyera qurish , turli yangiliklar haqida kontentlar',
+    },
+    {
+      name: 'keywords',
+      content: 'IT, Python, AI, Sun\'y intelekt, Shaxsiy rivojlanish',
+    },
+    {
+      property: 'keywords',
+      content: 'Texnologiya',
+    },
+    {
+      property: 'og:description',
+      content: 'Muvaffaqiyat sirlari, shaxsiy rivojlanish, It texnologiyalari, IT olamida Careriyera qurish , turli yangiliklar haqida kontentlar',
+    },
+  ],
+});
 onMounted(() => {
   fetchBlog()
   checkWindowSize(); // Initial check
