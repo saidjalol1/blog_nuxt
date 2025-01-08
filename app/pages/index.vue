@@ -37,19 +37,19 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Learn more about our company and team on the About Us page.',
+      content: 'Muvaffaqiyat sirlari',
     },
     {
       name: 'keywords',
-      content: 'about, company, team, web app',
+      content: 'IT, Python, AI, Sun\'y intelekt, Shaxsiy rivojlanish',
     },
     {
-      property: 'og:title',
-      content: 'About Us - My Web App',
+      property: 'keywords',
+      content: 'Texnologiya',
     },
     {
       property: 'og:description',
-      content: 'Learn more about our company and team on the About Us page.',
+      content: 'Muvaffaqiyat sirlari, shaxsiy rivojlanish, It texnologiyalari, IT olamida Careriyera qurish , turli yangiliklar haqida kontentlari',
     },
   ],
 });
