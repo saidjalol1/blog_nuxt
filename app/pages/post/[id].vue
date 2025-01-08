@@ -91,12 +91,17 @@ const comment_toggle = () =>{
 const post_image = (image) => {
     return `${ config.public.apiBase}/static/images/${image}`
 }
+
+let content = ref("")
+let _image_ = ref("")
+let post_title_subtitle = ref("")
+
 useHead({
-  title: `${post.value.title || post.value.subtitle}`,
+  title: post_title_subtitle.value,
   meta: [
     {
       name: 'description',
-      content: `${post.value.body.split(" ").slice(0, 10).join(" ")}...`,  // Summary of the post for the meta description
+      content: content.value,  // Summary of the post for the meta description
     },
     {
       name: 'keywords',
@@ -104,11 +109,11 @@ useHead({
     },
     {
       property: 'og:title',
-      content: `${post.value.title || post.value.subtitle}`,
+      content: post_title_subtitle.value,
     },
     {
       property: 'og:description',
-      content: `${post.value.body.split(" ").slice(0, 20).join(" ")}...`,
+      content: content,
     },
     {
       property: 'og:type',
@@ -120,7 +125,7 @@ useHead({
     },
     {
       property: 'og:image',
-      content: post_image(post.value.image || 'default-image.webp'),  // Ensure dynamic image URL is used
+      content: _image_.value,  // Ensure dynamic image URL is used
     },
     {
       name: 'author',
@@ -154,6 +159,9 @@ useHead({
 onMounted(() => {
   fetchBlog()
   checkWindowSize(); // Initial check
+  content.value = `${post.value.body.split(" ").slice(0, 10).join(" ")}...`
+  _image_.value = post_image(post.value.image)
+  post_title_subtitle.value = `${post.value.title } | ${post.value.subtitle}`
   window.addEventListener("resize", checkWindowSize);   
 });
 
