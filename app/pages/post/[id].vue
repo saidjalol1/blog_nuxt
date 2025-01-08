@@ -13,8 +13,21 @@ const com = ref(false)
 const config = useRuntimeConfig();
 const error = ref("")
 const date = ref("")
+const isLoading = ref(false)
+let content = ref("")
+let _image_ = ref("")
+let post_title_subtitle = ref("")
+
+
+
+
+const post_image = (image) => {
+    return `${ config.public.apiBase}/static/images/${image}`
+}
+
 
 const fetchBlog = async () => {
+  isLoading.value = true;
   try {
     const response = await fetch(`${config.public.apiBase}/get-blog/`, {
         method: "POST",
@@ -32,8 +45,44 @@ const fetchBlog = async () => {
     console.log(data)
     post.value = data
     date.value = data.date_added.split("T")[0]
+
+    useHead({
+      title: data.title,
+      meta: [
+        { name: 'description', content: data.subtitle },
+        { name: 'keywords', content: 'IT, Python, Sun\'iy intellekt, Shaxsiy rivojlanish, Texnologiyalar, IT Karera, Web dasturlash, O\'zbekcha kontent' },
+        { property: 'og:title', content: data.title },
+        { property: 'og:description', content: data.subtitle },
+        { property: 'og:type', content: 'article' },
+        { property: 'og:url', content: `https://www.muvaffaqiyatsirlari.uz/post/${data.id}` },
+        { property: 'og:image', content: post_image(data.image) },
+        { name: 'author', content: 'G\'ayratjon Xoldarov, Turakhujayev Saidjalol' },
+        { name: 'robots', content: 'index, follow' },
+      ],
+      script: [
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": post.value.title,
+            "description": post.value.subtitle,
+            "author": {
+              "@type": "Person",
+              "name": "G\'ayratjon Xoldarov, Turakhujayev Saidjalol"
+            },
+            "datePublished": post.value.date_added,
+            "image": post_image(post.value.image || 'default-image.webp'),
+            "url": `https://www.muvaffaqiyatsirlari.uz/post/${post.value.id}`,
+          }),
+        },
+      ],
+    });
+
   } catch (error) {
     error.value = error.message;
+  }finally{
+    isLoading.value = false
   }
 };
 
@@ -88,80 +137,53 @@ const recommend_menu = () =>{
 const comment_toggle = () =>{
     com.value = !com.value
 }
-const post_image = (image) => {
-    return `${ config.public.apiBase}/static/images/${image}`
-}
 
-let content = ref("")
-let _image_ = ref("")
-let post_title_subtitle = ref("")
 
-useHead({
-  title: post_title_subtitle.value,
-  meta: [
-    {
-      name: 'description',
-      content: content.value,  // Summary of the post for the meta description
-    },
-    {
-      name: 'keywords',
-      content: 'IT, Python, Sun\'iy intellekt, Shaxsiy rivojlanish, Texnologiyalar, IT Karera, Web dasturlash, O\'zbekcha kontent',
-    },
-    {
-      property: 'og:title',
-      content: post_title_subtitle.value,
-    },
-    {
-      property: 'og:description',
-      content: content,
-    },
-    {
-      property: 'og:type',
-      content: 'article',  // Make it specific to an article for SEO
-    },
-    {
-      property: 'og:url',
-      content: window.location.href,
-    },
-    {
-      property: 'og:image',
-      content: _image_.value,  // Ensure dynamic image URL is used
-    },
-    {
-      name: 'author',
-      content: 'G\'ayratjon Xoldarov, Turakhujayev Saidjalol',
-    },
-    {
-      name: 'robots',
-      content: 'index, follow',
-    },
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": post.value.title,
-        "description": post.value.body,
-        "author": {
-          "@type": "Person",
-          "name": "G\'ayratjon Xoldarov, Turakhujayev Saidjalol"
-        },
-        "datePublished": post.value.date_added,
-        "image": post_image(post.value.image || 'default-image.webp'),
-        "url": window.location.href,
-      }),
-    },
-  ],
+
+
+
+watch(() => post.value, () => {
+  post_title_subtitle.value = `${post.value.title} | ${post.value.subtitle}`;
+  content.value = post.value.body;
+  _image_.value = post_image(post.value.image || 'default-image.webp');
 });
 
 onMounted(() => {
   fetchBlog()
-  checkWindowSize(); // Initial check
-  content.value = `${post.value.body.split(" ").slice(0, 10).join(" ")}...`
-  _image_.value = post_image(post.value.image)
-  post_title_subtitle.value = `${post.value.title } | ${post.value.subtitle}`
+  checkWindowSize();  
+  useHead({
+      title: post.title,
+      meta: [
+        { name: 'description', content: post.value.subtitle },
+        { name: 'keywords', content: 'IT, Python, Sun\'iy intellekt, Shaxsiy rivojlanish, Texnologiyalar, IT Karera, Web dasturlash, O\'zbekcha kontent' },
+        { property: 'og:title', content: post.title },
+        { property: 'og:description', content: post.subtitle },
+        { property: 'og:type', content: 'article' },
+        { property: 'og:url', content: `https://www.muvaffaqiyatsirlari.uz/post/${post.id}` },
+        { property: 'og:image', content: post_image(post.image) },
+        { name: 'author', content: 'G\'ayratjon Xoldarov, Turakhujayev Saidjalol' },
+        { name: 'robots', content: 'index, follow' },
+      ],
+      script: [
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": post.value.title,
+            "description": post.value.subtitle,
+            "author": {
+              "@type": "Person",
+              "name": "G\'ayratjon Xoldarov, Turakhujayev Saidjalol"
+            },
+            "datePublished": post.value.date_added,
+            "image": post_image(post.value.image || 'default-image.webp'),
+            "url": `https://www.muvaffaqiyatsirlari.uz/post/${post.value.id}`,
+          }),
+        },
+      ],
+    });
+
   window.addEventListener("resize", checkWindowSize);   
 });
 
@@ -171,7 +193,8 @@ onUnmounted(() => {
 
 </script>
 <template >
-    <div v-if="error" class="error-message">{{ error }}</div>
+    <div v-if="isLoading" class="loading-spinner text-center mt-10">Loading...</div>
+    <div v-else-if="error" class="error-message">{{ error }}</div>
     <div v-else class="wrapper">
         <div class="post_detail pt-10">
             <div class="title font-black text-xl lg:text-3xl">{{ post?.title }}</div>
@@ -269,7 +292,7 @@ onUnmounted(() => {
                 </li>
             </ul>
         </div>
-        <div class="post_body mt-5 lg:text-xl md:text-xl text-lg text-xl" v-html="post.body"></div>
+        <div class="post_body mt-5 lg:text-xl md:text-xl text-lg text-xl"  v-html="post.body"></div>
         <div class="share_buttons flex mt-2 mb-2 gap-x-2 flex-wrap gap-y-2">
             <SocialShare class="text-white"  v-for="network in ['facebook', 'x', 'linkedin', 'email', 'telegram']"
             :key="network"
