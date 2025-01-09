@@ -26,14 +26,14 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'Asosiy - My Web App | IT, Shaxsiy Rivojlanish va Texnologiyalar',
+      title: 'Asosiy | IT, Shaxsiy Rivojlanish va Texnologiyalar',
       htmlAttrs: {
         lang: 'en', // Adds <html lang="en">
       },
       meta: [
         {
           name: 'description',
-          content: 'Muvaffaqiyat sirlari, shaxsiy rivojlanish, IT texnologiyalari, IT olamida muvaffaqiyatli karera qurish, Python va sun\'iy intellekt haqida qiziqarli va foydali kontent.',
+          content: 'Muvaffaqiyat sirlari, IT texnologiyalari, IT olamida muvaffaqiyatli karera qurish, Python va sun\'iy intellekt haqida qiziqarli va foydali kontent, shaxsiy rivojlanish',
         },
         {
           name: 'keywords',
@@ -41,11 +41,11 @@ export default defineNuxtConfig({
         },
         {
           property: 'og:title',
-          content: 'Asosiy - My Web App | IT, Shaxsiy Rivojlanish va Texnologiyalar',
+          content: 'Asosiy | IT, Shaxsiy Rivojlanish va Texnologiyalar',
         },
         {
           property: 'og:description',
-          content: 'O\'zbek tilida muvaffaqiyat sirlari, shaxsiy rivojlanish, IT texnologiyalari, va sun\'iy intellekt haqida qiziqarli maqolalar va yangiliklar.',
+          content: 'O\'zbek tilida muvaffaqiyat sirlari,IT texnologiyalari, va sun\'iy intellekt haqida qiziqarli maqolalar va yangiliklar. shaxsiy rivojlanish',
         },
         {
           property: 'og:type',

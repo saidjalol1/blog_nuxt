@@ -152,7 +152,7 @@ onMounted(() => {
   fetchBlog()
   checkWindowSize();  
   useHead({
-      title: post.title,
+      title: post.value.title,
       meta: [
         { name: 'description', content: post.value.subtitle },
         { name: 'keywords', content: 'IT, Python, Sun\'iy intellekt, Shaxsiy rivojlanish, Texnologiyalar, IT Karera, Web dasturlash, O\'zbekcha kontent' },
