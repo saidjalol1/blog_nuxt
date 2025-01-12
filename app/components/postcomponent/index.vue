@@ -186,10 +186,10 @@ img{
     width: 100%;
     margin-top: 30px;
 }
-a:active{
+h1:active{
     color: #fb4d3f;
 }
-a:hover{
+h1:hover{
     color: #fb4d3f;
     cursor: pointer;
 }
