@@ -132,5 +132,6 @@ a:hover{
     background-color: white;
     position: absolute;
     width: 100%;
+    z-index: 100;
 }
 </style>
