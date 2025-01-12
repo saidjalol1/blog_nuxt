@@ -1,7 +1,22 @@
 <script setup>
+import { onMounted } from 'vue';
+const loader = ref(true)
+
+const delay_load =  () =>{
+    setTimeout(() => {
+        console.log("Worked");
+        loader.value = false
+    }, 3000);
+}
+onMounted(() => {
+     delay_load()
+})
 </script>
 <template>
-    <div class="wrapper">
+    <div v-if="loader">
+        <Loader :loader="loader" />
+    </div>
+    <div v-else class="wrapper">
         <div class="search mt-10 mb-10 flex justify-content-center px-10">
             <form action="" class="w-full">
                 <div class="m-auto  flex items-center justify-center shadow hover:shadow-lg py-2 px-4 rounded-lg">

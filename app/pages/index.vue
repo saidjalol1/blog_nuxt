@@ -5,16 +5,26 @@ const config = useRuntimeConfig();
 const posts = ref([])
 const recommened = ref([])
 const error = ref("")
+const loader = ref(true)
+
+
+const delay_load =  () =>{
+    setTimeout(() => {
+        console.log("Worked");
+        loader.value = false
+    }, 2000);
+}
 
 // Get all Posts
 const fetchPost = async () => {
   try {
+    loader.value = true
     const response = await fetch(`${ config.public.apiBase}/all-blogs/`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     posts.value = await response.json();
-    console.log(posts.value);
+    delay_load()
   } catch (error) {
     error.value = error.message;
   }
@@ -38,12 +48,15 @@ onMounted( async () => {
 
 </script>
 <template>
-    <div v-if="error" class="wrapper">
-      <div class="error text-center">
-          {{  error  }}
-      </div>  
+    <div v-if="loader">
+        <Loader :loader="loader" />
     </div>
     <div v-else class="wrapper grid  grid-cols-1 md:grid-cols-12 sm:grid-cols-1 lg:grid-cols-12 lg:gap-x-5 md:gap-x-5 sm:gap-x-5">
+        <div v-if="error" class="wrapper">
+          <div class="error text-center">
+              {{  error  }}
+          </div>  
+        </div>
         <div class="posts_ lg:col-start-1 lg:col-end-9 md:col-start-1 md:col-end-9 sm:col-start-1 sm:col-end-13 lg:mt-10 md:mt-14 sm:mt-14">
           <Postcomponent  v-for="i in posts" :key="i.id" :post="i" :parent_function="fetchPost" />
         </div>

@@ -4,9 +4,18 @@ import { ref , onMounted} from "vue";
 const config = useRuntimeConfig();
 const posts = ref([])
 const error = ref("")
+const loader = ref(true)
+
+const delay_load =  () =>{
+    setTimeout(() => {
+        console.log("Worked");
+        loader.value = false
+    }, 2000);
+}
 
 const likedPosts = async () =>{
     try{
+      loader.value = true
         const responce = await fetch(`${ config.public.apiBase}/posts/liked`, {
             method: "POST",
             headers:{
@@ -20,8 +29,7 @@ const likedPosts = async () =>{
         
         const data = await responce.json()
         posts.value = data
-        console.log(posts.value);
-        
+        delay_load()
     }catch(error){
       error.value = error
     }
@@ -54,13 +62,12 @@ useHead({
 
 </script>
 <template>
-    <div class="wrapper grid  grid-cols-1 md:grid-cols-12 sm:grid-cols-1 lg:grid-cols-12 lg:gap-x-5 md:gap-x-5 sm:gap-x-5">
+    <div v-if="loader">
+        <Loader :loader="loader" />
+    </div>
+    <div v-else class="wrapper grid  grid-cols-1 md:grid-cols-12 sm:grid-cols-1 lg:grid-cols-12 lg:gap-x-5 md:gap-x-5 sm:gap-x-5">
         <div class="posts_ lg:col-start-1 lg:col-end-9 md:col-start-1 md:col-end-9 sm:col-start-1 sm:col-end-13 lg:mt-10 md:mt-14 sm:mt-14">
             <Postcomponent v-for="post in posts" :post="post" />
-        </div>
-        <div class="recommendation_posts lg:mt-0 md:mt-0 sm:mt-0 lg:col-start-9 lg:col-end-13 md:col-start-9 md:col-end-13 sm:col-start-1 sm:col-end-3 lg:py-4 md:py-4 lg:px-2 md:px-2 sm:py-4 lg:border lg:border-l-2 lg:border-b-0 lg:border-r-0 md:border md:border-l-2 md:border-b-0 md:border-r-0">
-            <h1 class="px-2 mb-8 text-xl font-bold mt-10">Takliflar</h1>
-            <RecommendedPosts v-for="post in posts" :post="post"/>
         </div>
     </div>
 </template>

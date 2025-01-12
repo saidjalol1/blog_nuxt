@@ -1,14 +1,17 @@
 <script setup>
 import { Analytics } from '@vercel/analytics/nuxt'
-
+const loader = ref(false);
 </script>
 <template>
-  <div>
-    <Analytics />
-    <Header />
+  <Analytics />
     <NuxtLayout />
-      <NuxtPage />
+    <div v-if="loader">
+        <Loader :loader="loader" />
+    </div>
+    <div v-else>
+      <Header />
+        <NuxtPage />
+      <Footer />
+    </div>
     <NuxtLayout />
-    <Footer />
-  </div>
 </template>

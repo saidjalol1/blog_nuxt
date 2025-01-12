@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import {  useRoute } from "vue-router";
 
+
 const router = useRoute()
 
 
@@ -13,7 +14,7 @@ const com = ref(false)
 const config = useRuntimeConfig();
 const error = ref("")
 const date = ref("")
-const isLoading = ref(false)
+const loader = ref(true)
 let content = ref("")
 let _image_ = ref("")
 let post_title_subtitle = ref("")
@@ -25,11 +26,17 @@ const post_image = (image) => {
     return `${ config.public.apiBase}/static/images/${image}`
 }
 
+const delay_load =  () =>{
+    setTimeout(() => {
+        console.log("Worked");
+        loader.value = false
+    }, 2000);
+}
 
 const fetchBlog = async () => {
-  isLoading.value = true;
-  try {
-    const response = await fetch(`${config.public.apiBase}/get-blog/`, {
+    try {
+        loader.value = true
+        const response = await fetch(`${config.public.apiBase}/get-blog/`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -39,13 +46,13 @@ const fetchBlog = async () => {
     });
     if (!response.ok) {
         console.log({"id":parseInt(router.params.id)})
-      throw new Error('Network response was not ok');
+        throw new Error('Network response was not ok');
     }
     const data = await response.json();
     console.log(data)
     post.value = data
     date.value = data.date_added.split("T")[0]
-
+    delay_load()
     useHead({
       title: data.title,
       meta: [
@@ -81,8 +88,6 @@ const fetchBlog = async () => {
 
   } catch (error) {
     error.value = error.message;
-  }finally{
-    isLoading.value = false
   }
 };
 
@@ -151,39 +156,6 @@ watch(() => post.value, () => {
 onMounted(() => {
   fetchBlog()
   checkWindowSize();  
-  useHead({
-      title: post.value.title,
-      meta: [
-        { name: 'description', content: post.value.subtitle },
-        { name: 'keywords', content: 'IT, Python, Sun\'iy intellekt, Shaxsiy rivojlanish, Texnologiyalar, IT Karera, Web dasturlash, O\'zbekcha kontent' },
-        { property: 'og:title', content: post.title },
-        { property: 'og:description', content: post.subtitle },
-        { property: 'og:type', content: 'article' },
-        { property: 'og:url', content: `https://www.muvaffaqiyatsirlari.uz/post/${post.id}` },
-        { property: 'og:image', content: post_image(post.image) },
-        { name: 'author', content: 'G\'ayratjon Xoldarov, Turakhujayev Saidjalol' },
-        { name: 'robots', content: 'index, follow' },
-      ],
-      script: [
-        {
-          type: 'application/ld+json',
-          innerHTML: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": post.value.title,
-            "description": post.value.subtitle,
-            "author": {
-              "@type": "Person",
-              "name": "G\'ayratjon Xoldarov, Turakhujayev Saidjalol"
-            },
-            "datePublished": post.value.date_added,
-            "image": post_image(post.value.image || 'default-image.webp'),
-            "url": `https://www.muvaffaqiyatsirlari.uz/post/${post.value.id}`,
-          }),
-        },
-      ],
-    });
-
   window.addEventListener("resize", checkWindowSize);   
 });
 
@@ -192,10 +164,12 @@ onUnmounted(() => {
 });
 
 </script>
-<template >
-    <div v-if="isLoading" class="loading-spinner text-center mt-10">Loading...</div>
-    <div v-else-if="error" class="error-message">{{ error }}</div>
+<template v-else>
+    <div v-if="loader">
+        <Loader :loader="loader" />
+    </div>
     <div v-else class="wrapper">
+        <div v-if="error" class="text-black">{{ error }}</div>
         <div class="post_detail pt-10">
             <div class="title font-black text-xl lg:text-3xl">{{ post?.title }}</div>
             <div class="title font-semibold text-gray-600 text-xl lg:text-2xl mt-2">{{ post?.subtitle }}</div>
@@ -327,6 +301,7 @@ onUnmounted(() => {
     </div>
 </template>
 <style scoped>
+
 .wrapper{
     max-width: 1024px;
 }
@@ -371,6 +346,7 @@ img{
     color: white;
     background-color: #fb4d3f;
 }
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -379,6 +355,7 @@ img{
     opacity: 1;
   }
 }
+
 
 @keyframes slideIn {
   from {
