@@ -23,9 +23,11 @@ export default defineNuxtConfig({
     },
   },
   app: {
+    
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
+      
       title: 'Asosiy | IT, Shaxsiy Rivojlanish va Texnologiyalar',
       htmlAttrs: {
         lang: 'en', // Adds <html lang="en">
@@ -67,6 +69,18 @@ export default defineNuxtConfig({
           name: 'robots',
           content: 'index, follow',
         },
+      ],
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/png',
+          href: '/favicon.ico' // Path to your touch icon
+        },
+        {
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+          href: '/favicon.ico' // Path for Apple devices
+        }
       ],
     },
   },
